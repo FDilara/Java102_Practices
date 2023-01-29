@@ -63,7 +63,7 @@ public class BattleLocation extends Location {
                     if (obstacle.getHealth()>0) {
                         System.out.println();
                         System.out.println("Monster hit you!");
-                        player.setHealthy(player.getHealth() - (obstacle.getDamage() - player.getInventory().getArmor()));
+                        player.setHealth(player.getHealth() - (obstacle.getDamage() - player.getInventory().getArmor()));
                         afterHit();
                     }
                 } else {

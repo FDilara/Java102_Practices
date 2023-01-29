@@ -3,7 +3,7 @@ package adventure_game;
 import java.util.Scanner;
 
 public class Player {
-    private int damage, healthy, money, rHealthy;
+    private int damage, healthy, money;
     private String name, characterName;
     private Inventory inventory;
     Scanner input = new Scanner(System.in);
@@ -48,10 +48,10 @@ public class Player {
                 "\nMoney: " + getMoney());
     }
 
-    public void initPlayer(String characterName, int damage, int healthy, int money) {
+    public void initPlayer(String characterName, int damage, int health, int money) {
         setCharacterName(characterName);
         setDamage(damage);
-        setHealthy(healthy);
+        setHealth(health);
         setMoney(money);
     }
 
@@ -71,8 +71,8 @@ public class Player {
         return healthy;
     }
 
-    public void setHealthy(int healthy) {
-        this.healthy = healthy;
+    public void setHealth(int health) {
+        this.healthy = health;
     }
 
     public int getMoney() {

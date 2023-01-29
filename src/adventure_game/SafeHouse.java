@@ -7,7 +7,7 @@ public class SafeHouse extends NormalLocation {
     }
 
     public boolean getLocation() {
-        player.setHealthy(player.getHealth());
+        player.setHealth(player.getHealth());
         System.out.println("Get Well!");
         System.out.println("You are now in \"Safe House\" location");
         return true;

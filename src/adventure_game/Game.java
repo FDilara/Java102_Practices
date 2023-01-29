@@ -65,7 +65,6 @@ public class Game {
                 System.out.println("GAME FINISHED!");
                 break;
             }
-
         }
     }
 }

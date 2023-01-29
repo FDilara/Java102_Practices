@@ -29,7 +29,6 @@ public class ToolStore extends NormalLocation {
             default:
                 break;
         }
-
         return true;
     }
 
@@ -85,10 +84,10 @@ public class ToolStore extends NormalLocation {
     }
 
     public int armorMenu() {
-        System.out.println("1. Slight (Money: 15 - Damage: 1)");
-        System.out.println("2. Middle (Money: 25 - Damage: 3)");
-        System.out.println("3. Heavy (Money: 40 - Damage: 5)");
-        System.out.println("4. Exit");
+        System.out.println("1.Slight (Money: 15 - Damage: 1)");
+        System.out.println("2.Middle (Money: 25 - Damage: 3)");
+        System.out.println("3.Heavy (Money: 40 - Damage: 5)");
+        System.out.println("4.Exit");
         System.out.print("Choose a armor: ");
         int selectArmorID = input.nextInt();
         return selectArmorID;
@@ -106,7 +105,7 @@ public class ToolStore extends NormalLocation {
             case 2:
                 armorName = "Middle Armor";
                 avoid = 3;
-                price = 15;
+                price = 25;
                 break;
             case 3:
                 armorName = "Heavy Armor";
