@@ -1,5 +1,6 @@
 package adventure_game;
 
+import java.util.Random;
 import java.util.Scanner;
 
 //Battle Location ---> "Forest", "Cave" and "River"
@@ -7,6 +8,7 @@ public class BattleLocation extends Location {
     protected Obstacle obstacle;
     protected String award;
 
+    Random rand = new Random();
     Scanner input = new Scanner(System.in);
 
     BattleLocation(Player player, String locationName, Obstacle obstacle, String award) {
@@ -36,6 +38,38 @@ public class BattleLocation extends Location {
                 } else if (this.award.equals("Firewood") && !player.getInventory().isFirewood()) {
                     System.out.println("You won " + this.award);
                     player.getInventory().setFirewood(true);
+                } else if(this.award.equals("") && !player.getInventory().isMine()) {
+                    String[] mineArray = new String[]{"Money", "Weapon", "Armor", ""};
+                    int number = (int) (rand.nextInt(3));
+                    if(mineArray[number].equals("Money")) {
+                        int[] moneyArray = new int[]{10, 5, 1};
+                        number = (int) (rand.nextInt(2));
+                        if (player.getMoney()>0) {
+                            player.setMoney(player.getMoney()-moneyArray[number]);
+                            System.out.println("You lost money");
+                            playerStats();
+                        }
+                    } else if (mineArray[number].equals("Weapon")) {
+                        //String[] weaponArray = new String[]{"Revolver", "Sword", "Rifle"};
+                        //number = (int) (rand.nextInt(2));
+                        //playerSetMoney = player.getMoney + weaponPrice
+                        if(player.getInventory().getWeaponName() != null) {
+                            player.getInventory().setWeaponName(null);
+                            System.out.println("You lost weapon");
+                        }
+                    } else if (mineArray[number].equals("Armor")) {
+                        //String[] armorArray = new String[]{"Slight", "Middle", "Heavy"};
+                        //number = (int) (rand.nextInt(2));
+                        //playerSetMoney = player.getMoney + armorPrice
+                        if(player.getInventory().getArmorName() != null) {
+                            player.setHealth(player.getHealth()-player.getInventory().getArmor());
+                            player.getInventory().setArmorName(null);
+                            System.out.println("You lost armor");
+                        }
+                    } else {
+                        System.out.print("You haven't lost any mines.");
+                    }
+                    player.getInventory().setMine(true);
                 }
                 return true;
             }
@@ -48,6 +82,7 @@ public class BattleLocation extends Location {
     }
 
     public boolean combat(int obstacleCount) {
+        int randomStart = (int) ((Math.random() * 2));
         for (int i=0; i<obstacleCount; i++) {
             int defObstacleHealth = obstacle.getHealth();
             playerStats();
@@ -57,14 +92,28 @@ public class BattleLocation extends Location {
                 String selectCase = input.nextLine();
                 selectCase = selectCase.toUpperCase();
                 if (selectCase.equals("H")) {
-                    System.out.println("You hit!");
-                    obstacle.setHealth(obstacle.getHealth() - player.getTotalDamage());
-                    afterHit();
-                    if (obstacle.getHealth()>0) {
-                        System.out.println();
-                        System.out.println("Monster hit you!");
-                        player.setHealth(player.getHealth() - (obstacle.getDamage() - player.getInventory().getArmor()));
+                    if(randomStart==1) {
+                        System.out.println("Start from player");
+                        System.out.println("You hit!");
+                        obstacle.setHealth(obstacle.getHealth() - player.getTotalDamage());
                         afterHit();
+                        if (obstacle.getHealth()>0) {
+                            System.out.println();
+                            System.out.println("Monster hit you!");
+                            player.setHealth(player.getHealth() - (obstacle.getDamage() - player.getInventory().getArmor()));
+                            afterHit();
+                        }
+                    } else {
+                        System.out.println("Start from monster");
+                        System.out.println("Monster hit you!");
+                        player.setHealth(player.getHealth() - obstacle.getDamage());
+                        afterHit();
+                        if(player.getHealth()>0) {
+                            System.out.println();
+                            System.out.println("You hit!");
+                            obstacle.setHealth(obstacle.getHealth() - player.getTotalDamage());
+                            afterHit();
+                        }
                     }
                 } else {
                     return false;

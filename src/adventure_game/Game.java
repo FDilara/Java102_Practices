@@ -26,7 +26,8 @@ public class Game {
             System.out.println("2.CAVE ---> You may come across zombies!");
             System.out.println("3.FOREST ---> You may come across vampire!");
             System.out.println("4.RIVER ---> You may come across bear!");
-            System.out.println("5.TOOL STORE ---> You can buy Weapon or Armor!");
+            System.out.println("5.MINE ---> You may come across snake!");
+            System.out.println("6.TOOL STORE ---> You can buy Weapon or Armor!");
             System.out.print("Select a location to perform an action: ");
 
             int selectLocation = input.nextInt();
@@ -40,15 +41,34 @@ public class Game {
                     location = new SafeHouse(player);
                     break;
                 case 2:
-                    location = new Cave(player);
+                    if(!player.getInventory().isFood()) {
+                        location = new Cave(player);
+                    } else {
+                        System.out.println("You won the Cave location award");
+                    }
                     break;
                 case 3:
-                    location = new Forest(player);
+                    if(!player.getInventory().isFirewood()) {
+                        location = new Forest(player);
+                    } else {
+                        System.out.println("You won the Forest location award");
+                    }
                     break;
                 case 4:
-                    location = new River(player);
+                    if(!player.getInventory().isWater()) {
+                        location = new River(player);
+                    } else {
+                        System.out.println("You won the River location award");
+                    }
                     break;
                 case 5:
+                    if(!player.getInventory().isMine()) {
+                        location = new Mine(player);
+                    } else {
+                        System.out.println("You entered Mine location");
+                    }
+                    break;
+                case 6:
                     location = new ToolStore(player);
                     break;
                 default:
@@ -61,9 +81,27 @@ public class Game {
                     break;
                 }
             }
-            if (!location.getLocation()) {
-                System.out.println("GAME FINISHED!");
-                break;
+
+            if(selectLocation==2 && !player.getInventory().isFood()) {
+                if (!location.getLocation()) {
+                    System.out.println("GAME FINISHED!");
+                    break;
+                }
+            } else if(selectLocation==3 && !player.getInventory().isFirewood()) {
+                if (!location.getLocation()) {
+                    System.out.println("GAME FINISHED!");
+                    break;
+                }
+            } else if(selectLocation==4 && !player.getInventory().isWater()) {
+                if (!location.getLocation()) {
+                    System.out.println("GAME FINISHED!");
+                    break;
+                }
+            } else if(selectLocation==5 && !player.getInventory().isMine()) {
+                if (!location.getLocation()) {
+                    System.out.println("GAME FINISHED!");
+                    break;
+                }
             }
         }
     }

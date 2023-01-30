@@ -1,7 +1,7 @@
 package adventure_game;
 
 public class Inventory {
-    private boolean water, food, firewood;
+    private boolean water, food, firewood, mine;
     private String weaponName, armorName;
     private int damage, armor;
 
@@ -9,6 +9,7 @@ public class Inventory {
         this.water = false;
         this.food = false;
         this.firewood = false;
+        this.mine = false;
         this.damage = 0;
         this.armor = 0;
         this.weaponName = null;
@@ -69,5 +70,13 @@ public class Inventory {
 
     public void setArmor(int armor) {
         this.armor = armor;
+    }
+
+    public boolean isMine() {
+        return mine;
+    }
+
+    public void setMine(boolean mine) {
+        this.mine = mine;
     }
 }
