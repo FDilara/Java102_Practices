@@ -2,16 +2,13 @@ package swing_gui_example;
 
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import java.util.Objects;
 
 public class Example extends JFrame{
     private JPanel wrapper;
     private JPanel wTop;
     private JTextField fld_username;
-    private JTextField fld_password;
     private JButton loginButton;
+    private JPasswordField passwordField;
 
     public Example() {
         //Theme can be changed
@@ -47,9 +44,10 @@ public class Example extends JFrame{
         setVisible(true); //frame appear
         loginButton.addActionListener(actionEvent -> {
             //System.out.println("Button clicked!");
-            if(fld_username.getText().length()==0 && fld_password.getText().length()==0) {
+            if(fld_username.getText().length()==0 && passwordField.getText().length()==0) {
                 JOptionPane.showMessageDialog(null, "Fill in all fields", "Warning", JOptionPane.INFORMATION_MESSAGE);
-
+            } else {
+                JOptionPane.showMessageDialog(null, "Welcome " + fld_username.getText(), "Information", JOptionPane.INFORMATION_MESSAGE);
             }
         });
     }
